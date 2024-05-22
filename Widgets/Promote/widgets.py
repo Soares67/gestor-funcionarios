@@ -34,8 +34,7 @@ def promote_widgets(master):
                 res_txb.delete("0.0", "end")
                 res_txb.insert(0.0, res)
 
-            except Exception as e:
-                print(e)
+            except IndexError:
                 msg.showerror("Erro", "Funcionário não encontrado. Verifique a chave de busca e tente novamente.")
                 
         else:
