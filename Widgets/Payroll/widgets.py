@@ -2,17 +2,31 @@ import customtkinter as ctk
 from PIL import Image
 from CTkToolTip import * 
 from Icons.iconspath import REFRESH_ICON
+import numpy as np
 import config, functions
 
 def payroll_widgets(master):
+
     total_payroll = sum(config.get_salaries())
-    total_vac = 19720.00  # TO FIX
+
+    if len(config.count_vacations()) == 0:
+         total_vac = 0
+    else:
+        avg_salaries = np.mean(config.get_salaries()).round(2)
+        valor_ferias = (avg_salaries / 30) * (1 + (1/3))
+        total_vac = sum(config.count_vacations()) * valor_ferias
 
     # Atualiza as estatísticas
     def refresh_stats():
         global total_payroll
+        global total_vac
         total_payroll = sum(config.get_salaries())  # Atualizar o total
         total_payroll_field.configure(text=f"R$ {functions.float_to_rs(total_payroll)}")  # Atualizar a informação na tela
+
+        avg_salaries = np.mean(config.get_salaries()).round(2)
+        valor_ferias = (avg_salaries / 30) * (1 + (1/3))
+        total_vac = sum(config.count_vacations()) * valor_ferias
+        total_vac_field.configure(text=f"R$ {functions.float_to_rs(total_vac)}")
 
     # Atualiza os gráficos
     def refresh_charts():

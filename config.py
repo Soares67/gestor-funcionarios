@@ -403,7 +403,7 @@ def get_gender_stats():
 
     cursor = conexao.cursor()
 
-    cursor.execute(f"SELECT genero FROM Funcionarios WHERE [statusEmprego] != 'Demitido'")
+    cursor.execute(f"SELECT genero FROM Funcionarios")
     resultado = cursor.fetchall()  #Resultado da busca
     resultado_tratado = [resultado[i][0] for i, row in enumerate(resultado)]
     cursor.close()
@@ -420,7 +420,7 @@ def get_area_stats():
 
     cursor = conexao.cursor()
 
-    cursor.execute(f"SELECT area FROM Funcionarios WHERE [statusEmprego] != 'Demitido'")
+    cursor.execute(f"SELECT area FROM Funcionarios")
     resultado = cursor.fetchall()  # Resultado da busca
     resultado_tratado = [resultado[i][0] for i, row in enumerate(resultado)]
     cursor.close()
@@ -460,7 +460,7 @@ def get_all_ages():
 
     cursor = conexao.cursor()
 
-    cursor.execute(f"SELECT [dataNascimento] FROM Funcionarios WHERE [statusEmprego] != 'Demitido'")
+    cursor.execute(f"SELECT [dataNascimento] FROM Funcionarios")
     resultado = cursor.fetchall()  # Resultado da busca
     ages_list = [get_age(resultado[i][0]) for i, row in enumerate(resultado)]
     unique_ages = list(set(ages_list))
