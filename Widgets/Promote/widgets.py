@@ -9,33 +9,39 @@ def promote_widgets(master):
     # Insere o resultado da busca no campo de resultado
     def insert_text():
         if functions.check_field(searcher_entry.get(), 1):
-            key = searcher_entry.get()
+            try:
+                key = int(searcher_entry.get())
+            except:
+                msg.showerror("Erro", "Insira um ID válido")
 
-            data = config.get_employee_info(key)
-            res = f"""
-    Nome: {data[1]}
+            if config.get_employee_info(key):
+                data = config.get_employee_info(key)
+                res = f"""
+        Nome: {data[1]}
 
-    ID: {data[0]}
-                        
-    Data de nascimento: {data[2]}
-                        
-    Email: {data[4]}
-                        
-    Área: {data[5]}
-                        
-    Cargo: {data[6]}
-                        
-    Salário: R$ {functions.float_to_rs(data[7])}
-                        
-    Data de admissão: {data[8]}
+        ID: {data[0]}
+                            
+        Data de nascimento: {data[2]}
+                            
+        Email: {data[4]}
+                            
+        Área: {data[5]}
+                            
+        Cargo: {data[6]}
+                            
+        Salário: R$ {functions.float_to_rs(data[7])}
+                            
+        Data de admissão: {data[8]}
 
-    """
-            res_txb.delete("0.0", "end")
-            res_txb.insert(0.0, res)
+        """
+                res_txb.delete("0.0", "end")
+                res_txb.insert(0.0, res)
+            else:
+                msg.showerror("Erro", "Funcionário não encontrado. Verifique o ID e tente novamente.")
 
                 
         else:
-            msg.showwarning("Atenção", "Insira uma chave de busca (ID ou Email)")
+            msg.showwarning("Atenção", "Insira uma chave de busca Válida (ID)")
 
     # Função que configura os botôes das abas
     def configure_seg_button(buttons: dict):
