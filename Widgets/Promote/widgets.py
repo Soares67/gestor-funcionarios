@@ -1,5 +1,4 @@
 import customtkinter as ctk
-import private
 from Icons.iconspath import PROMOTED_ICON, FIRED_ICON
 import config
 import functions
@@ -30,14 +29,15 @@ def promote_widgets(master):
         Salário: R$ {functions.float_to_rs(data[7])}
                             
         Data de admissão: {data[8]}
-                            
-        Status de emprego: {data[9]}
+
         """
                 res_txb.delete("0.0", "end")
                 res_txb.insert(0.0, res)
 
-            except IndexError:
+            except Exception as e:
+                print(e)
                 msg.showerror("Erro", "Funcionário não encontrado. Verifique a chave de busca e tente novamente.")
+                
         else:
             msg.showwarning("Atenção", "Insira uma chave de busca (ID ou Email)")
 
