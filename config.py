@@ -502,7 +502,7 @@ def get_employee_info(key):
     if len(resultado) == 1:
         return resultado[0]
     else:
-        raise IndexError  # Uso um Except para gerar uma mensagem personalizada com base nesse erro (Promote.widgets linha 36)
+        return False
 
 # Demite um funcionário (Muda o estado de emprego para "Demitido" e adiciona o ID à tabela de demissões)
 def fire_employee(key, motivo, obs):
