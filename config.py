@@ -796,3 +796,30 @@ def get_vacations(id):
         return resultado_tratado
     else:
         return False
+
+# Conta os dias de férias registrados no banco de dados
+def count_vacations():
+    # Conexão com o banco de dados
+    dados_conexao = ("Driver={SQLite3 ODBC Driver};"
+                "Server=localhost;"
+                r"Database=C:\Users\adrie\Downloads\Rework\gerenciador.db")
+    conexao = pyodbc.connect(dados_conexao)
+
+    cursor = conexao.cursor()
+
+    cursor.execute(f"SELECT [dataInicio], [dataFim] FROM Ferias")
+    resultado = cursor.fetchall()  #Resultado da busca
+    cursor.close()
+    conexao.close()
+
+    formato_data = "%d/%m/%Y"
+    lista_dias = []
+
+    for i in resultado:
+        data_inicio, data_fim = i
+        data_inicio_dt = datetime.strptime(data_inicio, formato_data)
+        data_fim_dt = datetime.strptime(data_fim, formato_data)
+        diferenca_dias = (data_fim_dt - data_inicio_dt).days
+        lista_dias.append(diferenca_dias)
+
+    return lista_dias

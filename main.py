@@ -31,6 +31,7 @@ class AdminStatus:
 class AuthAdmin(tk.Toplevel):
     def __init__(self, parent, admin_status):
         super().__init__(parent)
+        self.parent = parent
         self.admin_status = admin_status
         self.geometry("300x300")
         self.title("Admin Login")
@@ -153,6 +154,7 @@ class AuthAdmin(tk.Toplevel):
                     messagebox.showinfo("hey", "Admin logado com sucesso")
                     self.admin_status.login()
                     config.update_last_access(self.user_entry.get().lower(), self.senha_entry.get())
+                    self.parent.destroy_locker()
                     self.destroy()
                 else:
                     messagebox.showerror("Erro", "Login ou senha incorretos")
@@ -865,6 +867,38 @@ class Gestor(tk.Tk):
 
         #Home
         home_widgets(self)
+
+        # Bloqueador
+        self.locker = ctk.CTkFrame(self,
+                                   width=1348,
+                                   height=720,
+                                   fg_color="white",
+                                   corner_radius=0
+                                   )
+        self.locker.place(x=52,y=0)
+
+        # Texto do bloqueador
+        self.locker_lb = ctk.CTkLabel(self.locker,
+                                      text="Faça login para continuar",
+                                      font=("Roboto", 32, 'bold'),
+                                      text_color="black",
+                                      width=300,
+                                      height=200
+                                      )
+        self.locker_lb.place(x=530,y=170)
+
+        # Botão de login
+        self.login_btn = ctk.CTkButton(self.locker,
+                                       width=100,
+                                       height=50,
+                                       text="Fazer login",
+                                       font=("Roboto", 20, 'bold'),
+                                       corner_radius=20,
+                                       fg_color="#0891b2",
+                                       hover_color="#155e75",
+                                       command=lambda: self.login()
+                                       )
+        self.login_btn.place(x=645,y=335)
         
         #Frame da opção de férias
         self.ferias_frame = ctk.CTkFrame(self,
@@ -1041,6 +1075,18 @@ class Gestor(tk.Tk):
             "cadastrar": [self.cadastrar_frame, "reduced"]
 
         }
+
+    # Remove o bloquedor quando o login é identificado
+    def destroy_locker(self):
+        if self.locker:
+            self.locker.place_forget()
+        else:
+            pass
+    
+    # Abre a janela de login
+    def login(self):
+        auth = auth = AuthAdmin(self, self.admin_status)
+        auth.grab_set()
                
     # Vai para a página inicial
     def gohome(self):
