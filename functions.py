@@ -6,14 +6,14 @@ import os
 
 
 #Abre/Fecha um frame
-def open_close_frame(botao, states):
+def open_close_frame(botao, states, log_stats):
     """Expande/Encolhe um frame
     
     Args:
         botao (tk.Button): Botão que fará a ação
         states (dict): dicionário com o formato: {tk.Frame: "epanded/reduced"}
     """
-    if states[botao.name][1] == "reduced":
+    if states[botao.name][1] == "reduced" and log_stats is True:
         m_frame = states[botao.name][0]
         m_frame.configure(width=1380)
         states[botao.name][1] = "expanded"

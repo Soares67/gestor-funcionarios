@@ -982,7 +982,7 @@ class Gestor(tk.Tk):
                                        hover_color="#155e75",
                                        text="",
                                        image=iconspath.CADASTRO_ICON,
-                                       command=lambda: functions.open_close_frame(self.cadastro_btn, self.states)
+                                       command=lambda: functions.open_close_frame(self.cadastro_btn, self.states, self.admin_status.is_logged())
                                        )
         self.cadastro_btn.pack(pady=30)
         self.cadastro_btn.name = "cadastrar"
@@ -996,7 +996,7 @@ class Gestor(tk.Tk):
                                        hover_color="#155e75",
                                        text="",
                                        image=iconspath.PROMOVER_ICON,
-                                       command=lambda: functions.open_close_frame(self.promover_btn, self.states)
+                                       command=lambda: functions.open_close_frame(self.promover_btn, self.states, self.admin_status.is_logged())
                                        )
         self.promover_btn.pack(pady=30)
         self.promover_btn.name = "promover"
@@ -1010,7 +1010,7 @@ class Gestor(tk.Tk):
                                        hover_color="#155e75",
                                        text="",
                                        image=iconspath.FOLHA_PAGAMENTO_ICON,
-                                       command=lambda: functions.open_close_frame(self.folha_pagamento_btn, self.states)
+                                       command=lambda: functions.open_close_frame(self.folha_pagamento_btn, self.states, self.admin_status.is_logged())
                                        )
         self.folha_pagamento_btn.pack(pady=30)
         self.folha_pagamento_btn.name = "folha pagamento"
@@ -1024,7 +1024,7 @@ class Gestor(tk.Tk):
                                        hover_color="#155e75",
                                        text="",
                                        image=iconspath.HORA_EXTRA_ICON,
-                                       command=lambda: functions.open_close_frame(self.hora_extra_btn, self.states)
+                                       command=lambda: functions.open_close_frame(self.hora_extra_btn, self.states, self.admin_status.is_logged())
                                        )
         self.hora_extra_btn.pack(pady=30)
         self.hora_extra_btn.name = "hora extra"
@@ -1038,7 +1038,7 @@ class Gestor(tk.Tk):
                                        hover_color="#155e75",
                                        text="",
                                        image=iconspath.FERIAS_ICON,
-                                       command=lambda: functions.open_close_frame(self.ferias_btn, self.states)
+                                       command=lambda: functions.open_close_frame(self.ferias_btn, self.states, self.admin_status.is_logged())
                                        )
         self.ferias_btn.pack(pady=30)
         self.ferias_btn.name = "ferias"
